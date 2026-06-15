@@ -1,4 +1,4 @@
-FROM php:8.2-cli
+FROM php:8.3-cli
 
 # Install system dependencies and PHP extensions commonly needed by Laravel
 RUN apt-get update && apt-get install -y \
@@ -12,9 +12,12 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libpq-dev \
     libsqlite3-dev \
+    libicu-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql pdo_pgsql pdo_sqlite mbstring zip gd bcmath \
+    && docker-php-ext-install pdo_mysql pdo_pgsql pdo_sqlite mbstring zip gd bcmath intl \
     && rm -rf /var/lib/apt/lists/*
+
+ENV COMPOSER_MEMORY_LIMIT=-1
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
