@@ -13,7 +13,6 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libsqlite3-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql pdo_pgsql pdo_sqlite mbstring zip gd bcmath \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
